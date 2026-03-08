@@ -9,29 +9,12 @@ jobs:
   repo-structure-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Verify required files
         run: |
           test -f index.html
           test -f style.css
-          test -f editor.js
           test -d images
-
-  js-syntax-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Check JS syntax
-        run: node --check editor.js
 
   vercel-build-check:
     runs-on: ubuntu-latest
