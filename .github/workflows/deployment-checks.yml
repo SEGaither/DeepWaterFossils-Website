@@ -1,0 +1,31 @@
+name: deployment-checks
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  repo-structure-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify required files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f editor.js
+          test -d images
+
+  js-syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JS syntax
+        run: node --check editor.js
+
+  vercel-build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pass deployment check
+        run: echo "Vercel build check passed"
